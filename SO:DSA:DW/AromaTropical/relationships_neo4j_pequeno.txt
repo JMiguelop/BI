@@ -1,0 +1,22 @@
+MATCH (p:Perfume),(c:FamiliaOlfativa)
+	WHERE p.idFamiliaOlfativa = c.idFamiliaOlfativa
+	CREATE (p)-[:PERTENCE]->(c)
+
+
+MATCH (v:Venda),(f:Funcionario)
+	WHERE v.idFuncionario = f.idFuncionario
+	CREATE (f)-[:RESPONSAVEL_POR]->(v)
+
+
+MATCH (v:Venda),(c:Cliente)
+	WHERE v.idCliente = c.idCartao
+	CREATE (v)-[:ASSOCIADA]->(c)
+
+
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/DkfuBiv1" AS row
+MATCH (v:Venda),(p:Perfume)
+	WHERE v.idVenda = toInt(row.idVenda) AND p.idPerfume = toInt(row.idPerfume)
+	CREATE (v)-[:VENDA_PERFUME { precoVenda: toFloat(row.precoVenda), quantidade: toInt(row.quantidade), last_update: row.last_update }]->(p)
+
+
+

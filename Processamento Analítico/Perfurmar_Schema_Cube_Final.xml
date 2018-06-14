@@ -1,0 +1,94 @@
+<Schema name="Perfurmar_Schema_Cube_Final">
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Dim_Cliente">
+    <Hierarchy name="Hierarquia_Cliente" visible="true" hasAll="true" primaryKey="SKCliente">
+      <Table name="dim_cliente">
+      </Table>
+      <Level name="Nome" visible="true" column="nome" ordinalColumn="SKCliente" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Cidade" visible="true" column="cidade" ordinalColumn="SKCliente" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Annotations>
+          <Annotation name="Data.Role">
+            <![CDATA[Geography]]>
+          </Annotation>
+          <Annotation name="Geo.Role">
+            <![CDATA[city]]>
+          </Annotation>
+        </Annotations>
+      </Level>
+      <Level name="Idade" visible="true" column="idade" ordinalColumn="SKCliente" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Email" visible="true" column="email" ordinalColumn="SKCliente" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Telemovel" visible="true" column="telemovel" ordinalColumn="SKCliente" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="Dim_Data">
+    <Hierarchy name="Hierarquia_Data_Dia" visible="true" hasAll="true" primaryKey="SKData">
+      <Table name="dim_data">
+      </Table>
+      <Level name="Dia" visible="true" column="dia" ordinalColumn="SKData" type="Integer" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Hierarquia_Data" visible="true" hasAll="true" primaryKey="SKData">
+      <Table name="dim_data">
+      </Table>
+      <Level name="Mes" visible="true" column="mes" ordinalColumn="SKData" type="Integer" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+      <Level name="Trimestre" visible="true" column="trimestre" ordinalColumn="SKData" type="Integer" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+      </Level>
+      <Level name="Semestre" visible="true" column="semestre" ordinalColumn="SKData" type="Integer" uniqueMembers="false" levelType="TimeHalfYears" hideMemberIf="Never">
+      </Level>
+      <Level name="Ano" visible="true" column="ano" ordinalColumn="SKData" type="Integer" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Dim_Funcionario">
+    <Hierarchy name="Hierarquia_Funcionario" visible="true" hasAll="true" primaryKey="SKFuncionario">
+      <Table name="dim_funcionario">
+      </Table>
+      <Level name="Nome" visible="true" column="nome" ordinalColumn="SKFuncionario" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Cidade" visible="true" column="cidade" ordinalColumn="SKFuncionario" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Annotations>
+          <Annotation name="Data.Role">
+            <![CDATA[Geography]]>
+          </Annotation>
+          <Annotation name="Geo.Role">
+            <![CDATA[city]]>
+          </Annotation>
+        </Annotations>
+      </Level>
+      <Level name="Telemovel" visible="true" column="telemovel" ordinalColumn="SKFuncionario" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Dim_Perfume">
+    <Hierarchy name="Hierarquia_Perfume" visible="true" hasAll="true" primaryKey="SKPerfume">
+      <Table name="dim_perfume">
+      </Table>
+      <Level name="Tipo" visible="true" column="tipo" ordinalColumn="SKPerfume" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Categoria" visible="true" column="categoria" ordinalColumn="SKPerfume" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Cubo_Perfurmar_Final" visible="true" cache="true" enabled="true">
+    <Table name="tf_vendas">
+    </Table>
+    <DimensionUsage source="Dim_Cliente" usagePrefix="Dim_Cliente" name="Dim_Cliente" visible="true" foreignKey="SKCliente" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Dim_Data" usagePrefix="Dim_Data" name="Dim_Data" visible="true" foreignKey="SKData" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Dim_Funcionario" usagePrefix="Dim_Funcionario" name="Dim_Funcionario" visible="true" foreignKey="SKFuncionario" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Dim_Perfume" usagePrefix="Dim_Perfume" name="Dim_Perfume" visible="true" foreignKey="SKPerfume" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Total" column="custoTotal" datatype="Numeric" formatString="###.##" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Preco Unitario" column="precoUnitario" datatype="Numeric" formatString="###.##" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="Quantidade" column="quantidade" datatype="Numeric" formatString="####" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>

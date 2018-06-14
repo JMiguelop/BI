@@ -1,0 +1,51 @@
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/Rbxcm4Si" AS row
+CREATE (:Cliente {
+	idCartao: toInt(row.idCartao),
+	nome: row.nome,
+	telemovel: toInt(row.telemovel),
+	email: row.email,
+	profissao: row.profissao,
+	dataNascimento: row.dataNascimento,
+	cidade: row.cidade,
+	create_date: row.create_date,
+	last_update: row.last_update
+});
+
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/V19sjgyn" AS row
+CREATE (:FamiliaOlfativa {
+	idFamiliaOlfativa: toInt(row.id),
+	tipo: row.nome,
+	last_update: row.last_update
+});
+
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/6BvbNTHV" AS row
+CREATE (:Funcionario {
+	idFuncionario: toInt(row.idFuncionario),
+	nome: row.nome,
+	telemovel: toInt(row.telemovel),
+	cidade: row.cidade,
+	create_date: row.create_date,
+	last_update: row.last_update
+});
+
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/CttrW5rw" AS row
+CREATE (:Perfume {
+	idPerfume: toInt(row.id),
+	nome: row.nome,
+	stock: toInt(row.stock),
+	precoUnitario: toFloat(row.preco),
+	tipo: row.tipo,
+	idFamiliaOlfativa: toInt(row.familiaOlfativa),
+	create_date: row.create_date,
+	last_update: row.last_update
+});
+
+LOAD CSV WITH HEADERS FROM "http://pastebin.com/raw/8Zt2Yk7z" AS row
+CREATE (:Venda {
+	idVenda: toInt(row.idVenda),
+	data: row.data,
+	custoTotal: toFloat(row.custoTotal),
+	idFuncionario: toInt(row.idFuncionario),
+	idCliente: toInt(row.idCliente),
+	last_update: row.last_update
+});
